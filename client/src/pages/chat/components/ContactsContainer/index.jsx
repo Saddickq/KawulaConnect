@@ -19,27 +19,32 @@ const ContactsContainer = () => {
       }
     };
     getContactList();
-  }, []);
+  }, [directMessageContacts]);
   return (
-    <div className="bg-slate-800  w-full h-full">
+    <div className="bg-slate-800 w-full h-full flex flex-col">
       <div className="h-[10vh] flex items-center">
-        <h1 className="text-3xl font-bold text text-neutral-50 pl-5">logo</h1>
+        <h1 className="text-3xl font-bold text-neutral-50 pl-5">logo</h1>
       </div>
-      <div className="my-8 ">
-        <div className="flex items-center justify-between pr-10">
-          <Title text="direct messages" />
-          <NewDM />
-        </div>
-        <div className="overflow-y-auto">
+      
+      <div className="flex-grow flex flex-col justify-start">
+        <div className="my-4">
+          <div className="flex items-center justify-between pr-10">
+            <Title text="direct messages" />
+            <NewDM />
+          </div>
+          <div className="overflow-y-auto">
             <ContactList contacts={directMessageContacts} />
+          </div>
+        </div>
+  
+        <div className="my-4">
+          <div className="flex items-center justify-between pr-10">
+            <Title text="channels" />
+            <NewDM />
+          </div>
         </div>
       </div>
-      <div className="">
-        <div className="flex items-center justify-between pr-10">
-          <Title text="channels" />
-          <NewDM />
-        </div>
-      </div>
+      
       <div className="">
         <ProfileBottom />
       </div>

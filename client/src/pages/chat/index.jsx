@@ -17,27 +17,21 @@ const Chat = () => {
 
   return (
     <div className="h-screen overflow-hidden">
-      <div
-        className={`grid h-full "grid-cols-1 ${
-          selectedChatType
-            ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-3"
-            : "grid-cols-1 md:grid-cols-3"
-        }`}
-      >
-        {/* Contacts Container */}
-        <div className={`col-span-1 h-screen w-full bg-slate-800 ${selectedChatType ? "hidden md:block" : ""}`}>
+      <div className="grid h-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          className={`col-span-1 h-screen w-full bg-slate-800 ${
+            selectedChatType ? "hidden md:block" : ""
+          }`}
+        >
           <ContactsContainer />
         </div>
-  
-        {/* Conditionally render ChatsContainer or MessagesContainer based on selectedChatType */}
+
         {selectedChatType ? (
-          // MessagesContainer takes up 2 columns when a chat is selected
-          <div className="col-span-2 md:col-span-1 lg:col-span-2">
+          <div className="col-span-1 relative md:col-span-2 lg:col-span-3">
             <MessagesContainer />
           </div>
         ) : (
-          // ChatsContainer takes up 2 columns if no chat is selected
-          <div className="col-span-2 md:col-span-2">
+          <div className="col-span-1 md:col-span-2 lg:col-span-3">
             <ChatsContainer />
           </div>
         )}
