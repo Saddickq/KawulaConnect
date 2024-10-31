@@ -28,7 +28,7 @@ const ProfileBottom = () => {
   }
 
   return (
-    <div className="absolute flex items-center justify-between bottom-0 h-[12vh] w-full ">
+    <div className="flex items-center justify-between h-[12vh] w-full">
       <div className="flex items-center w-full justify-between px-5 gap-4">
         <div className="flex relative items-center gap-5">
           <Avatar className="w-10 h-10 overflow-hidden rounded-full">
@@ -56,7 +56,7 @@ const ProfileBottom = () => {
             )}
           </div>
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-8">
           <FaUserEdit
             className="cursor-pointer hover:opacity-80 size-7 text-neutral-100"
             onClick={() => navigate("/profile")}

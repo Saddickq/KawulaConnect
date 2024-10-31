@@ -4,7 +4,7 @@ import MessageHeader from "./MessagesHeader";
 
 const MessagesContainer = () => {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex absolute flex-col w-full h-full">
       <MessageHeader />
       <MessageField />
       <MessageBar />

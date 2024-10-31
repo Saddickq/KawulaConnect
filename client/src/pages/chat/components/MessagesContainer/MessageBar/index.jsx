@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { useAppStore } from "@/pages/store";
 import { useSocket } from "@/context/socketContext";
+import axios from "axios";
 
 const MessageBar = () => {
   const [message, setMessage] = useState("");
@@ -12,6 +13,7 @@ const MessageBar = () => {
   const socket = useSocket();
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const emojiRef = useRef(null);
+  const fileInputRef = useRef();
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -26,7 +28,7 @@ const MessageBar = () => {
   }, [emojiRef]);
 
   const handleSendMessage = () => {
-    if (selectedChatType === "contact") {
+    if (message && selectedChatType === "contact") {
       socket.emit("sendMessage", {
         sender: userInfo._id,
         receiver: selectedChatData._id,
@@ -34,10 +36,47 @@ const MessageBar = () => {
         messageType: "text",
         fileURL: undefined,
       });
-      setMessage("")
+      setMessage("");
     }
   };
 
+  const handleAttachmentClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleAttachmentChange = async (event) => {
+    try {
+      const file = event.target.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const { data, status } = await axios.post(
+          "/api/v1/upload_file",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (data.file && status === 200) {
+          if (selectedChatType === "contact") {
+            socket.emit("sendMessage", {
+              sender: userInfo._id,
+              receiver: selectedChatData._id,
+              content: undefined,
+              messageType: "text",
+              fileURL: data.file.path,
+            });
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleAddEmoji = (emoji) => {
     setMessage((msg) => msg + emoji.emoji);
   };
@@ -51,7 +90,18 @@ const MessageBar = () => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <TiAttachmentOutline className="size-7 text-slate-800 cursor-pointer hover:opacity-85 transition-all duration-300" />
+        <button
+          className="text-slate-800 cursor-pointer hover:opacity-85 transition-all duration-300"
+          onClick={handleAttachmentClick}
+        >
+          <TiAttachmentOutline className="size-7 " />
+        </button>
+        <input
+          type="file"
+          className="hidden"
+          ref={fileInputRef}
+          onChange={handleAttachmentChange}
+        />
         <MdOutlineEmojiEmotions
           onClick={() => setEmojiPickerOpen(true)}
           className="size-7 text-slate-800 hover:opacity-85 transition-all duration-300 cursor-pointer"
