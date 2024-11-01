@@ -9,6 +9,9 @@ import UserRoutes from "./routes/user.route.js";
 import ContactRoutes from "./routes/contact.route.js";
 import MessageRoutes from "./routes/message.route.js";
 import setupSocket from "./socket.js";
+import { fileURLToPath } from 'url'
+import { dirname } from "path";
+
 
 const app = express();
 
@@ -19,9 +22,13 @@ app.use(
   })
 );
 
+const __fileName = fileURLToPath(import.meta.url)
+const __dirname = dirname(__fileName)
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+app.use("/uploads", express.static(__dirname + "/uploads"))
 
 app.use(AuthRoutes);
 app.use(UserRoutes);

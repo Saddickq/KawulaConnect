@@ -11,5 +11,3 @@ export const getColor = (color) => {
   }
   return colors[0];
 };
-
-
