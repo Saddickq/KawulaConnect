@@ -19,13 +19,13 @@ const ContactsContainer = () => {
       }
     };
     getContactList();
-  }, [directMessageContacts]);
+  }, []);
   return (
     <div className="bg-slate-800 w-full h-full flex flex-col">
       <div className="h-[10vh] flex items-center">
         <h1 className="text-3xl font-bold text-neutral-50 pl-5">logo</h1>
       </div>
-      
+
       <div className="flex-grow flex flex-col justify-start">
         <div className="my-4">
           <div className="flex items-center justify-between pr-10">
@@ -36,7 +36,7 @@ const ContactsContainer = () => {
             <ContactList contacts={directMessageContacts} />
           </div>
         </div>
-  
+
         <div className="my-4">
           <div className="flex items-center justify-between pr-10">
             <Title text="channels" />
@@ -44,7 +44,7 @@ const ContactsContainer = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="">
         <ProfileBottom />
       </div>

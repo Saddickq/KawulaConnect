@@ -6,7 +6,14 @@ import ContactsContainer from "./components/ContactsContainer";
 import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
-  const { userInfo, selectedChatType } = useAppStore();
+  const {
+    userInfo,
+    selectedChatType,
+    isDownloading,
+    isUploading,
+    fileUploadProgress,
+    fileDownloadProgress,
+  } = useAppStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +24,18 @@ const Chat = () => {
 
   return (
     <div className="h-screen overflow-hidden">
+      {isUploading && (
+        <div className="h-full w-full text-neutral-200 fixed top-0 z-[100] left-0 bg-black/80 flex gap-4 items-center justify-center flex-col backdrop-blur-lg">
+          <h5 className="text-5xl animate-pulse">Uploding File</h5>
+          {fileUploadProgress}%
+        </div>
+      )}
+      {isDownloading && (
+        <div className="h-full w-full text-neutral-200 fixed top-0 z-[100] left-0 bg-black/80 flex gap-4 items-center justify-center flex-col backdrop-blur-lg">
+          <h5 className="text-4xl animate-pulse">Downloading File</h5>
+          {fileDownloadProgress}%
+        </div>
+      )}
       <div className="grid h-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
         <div
           className={`col-span-1 h-screen w-full bg-slate-800 ${
