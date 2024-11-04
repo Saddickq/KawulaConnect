@@ -4,6 +4,7 @@ import ProfileBottom from "./ProfileFooter";
 import axios from "axios";
 import { useAppStore } from "@/pages/store";
 import ContactList from "./ContactList";
+import NewChannel from "./NewChannel";
 
 const ContactsContainer = () => {
   const { setDirectMessageContacts, directMessageContacts } = useAppStore();
@@ -40,7 +41,7 @@ const ContactsContainer = () => {
         <div className="my-4">
           <div className="flex items-center justify-between pr-10">
             <Title text="channels" />
-            <NewDM />
+            <NewChannel />
           </div>
         </div>
       </div>
