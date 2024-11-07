@@ -7,7 +7,12 @@ import ContactList from "./ContactList";
 import NewChannel from "./NewChannel";
 
 const ContactsContainer = () => {
-  const { setDirectMessageContacts, directMessageContacts } = useAppStore();
+  const {
+    directMessageContacts,
+    setDirectMessageContacts,
+    channels,
+    setChannels,
+  } = useAppStore();
   useEffect(() => {
     const getContactList = async () => {
       try {
@@ -19,8 +24,20 @@ const ContactsContainer = () => {
         console.error(error);
       }
     };
+    const getChannelList = async () => {
+      try {
+        const { data, status } = await axios.get("/api/get-user-channels");
+        if (data.channels && status === 200) {
+          setChannels(data.channels);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     getContactList();
-  }, []);
+    getChannelList();
+  }, [setDirectMessageContacts, setChannels]);
+
   return (
     <div className="bg-slate-800 w-full h-full flex flex-col">
       <div className="h-[10vh] flex items-center">
@@ -42,6 +59,9 @@ const ContactsContainer = () => {
           <div className="flex items-center justify-between pr-10">
             <Title text="channels" />
             <NewChannel />
+          </div>
+          <div className="overflow-y-auto">
+            <ContactList contacts={channels} isChannel={true} />
           </div>
         </div>
       </div>
