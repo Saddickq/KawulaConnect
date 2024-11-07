@@ -49,7 +49,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
               </Avatar>
             )}
             {isChannel && (
-              <div className="h-10 w-10 flex items-center justify-center rounded-full">
+              <div className="text-slate-900 h-8 w-8 flex items-center justify-center bg-white font-semibold rounded-full">
                 #
               </div>
             )}

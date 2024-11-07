@@ -21,7 +21,8 @@ import { useAppStore } from "@/pages/store";
 import { Button } from "@/components/ui/button";
 
 const NewChannel = () => {
-  const { setSelectedChatType, setSelectedChatData } = useAppStore();
+  const { setSelectedChatType, setSelectedChatData, addChannels, setChannels } =
+    useAppStore();
   const [error, setError] = useState("");
   const [searchedContacts, setSearchedContacts] = useState([]);
   const [channelModal, setChannelModal] = useState(false);
@@ -61,10 +62,17 @@ const NewChannel = () => {
 
   const createChannel = async () => {
     try {
-        const {data, status} = await axios.post()
-    } catch (error) {
-        
-    }
+      const { data, status } = await axios.post("/api/channels", {
+        name: channelName,
+        members: selectedContacts.map((contact) => contact.value),
+      });
+      if (data.channel && (status === 201)) {
+        setChannelName("");
+        setSelectedContacts([]);
+        setChannelModal(false);
+        addChannels(data.channel);
+      }
+    } catch (error) {}
   };
   return (
     <>
