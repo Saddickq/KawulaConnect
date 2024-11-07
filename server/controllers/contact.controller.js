@@ -85,6 +85,32 @@ class ContactController {
       res.status(500).json({ message: "Couldn't find search results" });
     }
   }
+
+  static async getAllContacts(req, res) {
+    try {
+      const userId = req.userId;
+      const users = await User.find(
+        { _id: { $ne: userId } },
+        "_id firstName lastName email"
+      );
+
+      const contacts = users.map((user) => ({
+        label: user.firstName
+          ? `${user.firstName} ${user.lastName}`
+          : user.email,
+        value: user._id,
+      }));
+
+      if (contacts.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No contact was found for your search" });
+      }
+      return res.status(200).json({ contacts });
+    } catch (error) {
+      res.status(500).json({ message: "Couldn't find search results" });
+    }
+  }
 }
 
 export default ContactController;

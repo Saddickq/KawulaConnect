@@ -8,4 +8,6 @@ router.post("/api/search_contacts", verifyToken, ContactController.searchContact
 
 router.get("/api/get_contacts_list", verifyToken, ContactController.getContactFromDM);
 
+router.get("/api/get_all_contacts", verifyToken, ContactController.getAllContacts)
+
 export default router;
