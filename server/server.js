@@ -8,6 +8,7 @@ import AuthRoutes from "./routes/auth.route.js";
 import UserRoutes from "./routes/user.route.js";
 import ContactRoutes from "./routes/contact.route.js";
 import MessageRoutes from "./routes/message.route.js";
+import ChannelRoutes from "./routes/channel.route.js"
 import setupSocket from "./socket.js";
 import { fileURLToPath } from 'url'
 import { dirname } from "path";
@@ -34,6 +35,7 @@ app.use(AuthRoutes);
 app.use(UserRoutes);
 app.use(ContactRoutes);
 app.use(MessageRoutes);
+app.use(ChannelRoutes)
 
 mongoose
   .connect(DB_URL)

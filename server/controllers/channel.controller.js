@@ -39,6 +39,26 @@ class ChannelController {
       return res.json(500).json({ message: "Internal Server Error" });
     }
   }
+
+  static async getChannelsMessages(req, res) {
+    try {
+      const { channelId } = req.params;
+      const channel = await Channel.findById(channelId).populate({
+        path: "messages",
+        populate: {
+          path: "sender",
+          select: "firstName lastName email _id image color",
+        },
+      });
+      if (!channel) {
+        return res.status(404).json({ message: "channel Not found"})
+      }
+      const messages = channel.messages
+      return res.status(200).json({ messages });
+    } catch (error) {
+      return res.json(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
 
 export default ChannelController;

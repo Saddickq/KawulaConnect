@@ -1,10 +1,6 @@
 import Message from "../models/message.model.js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import path from "path";
 
-const __fileName = fileURLToPath(import.meta.url);
-const __dirname = dirname(__fileName);
+
 class MessageController {
   static async getMessages(req, res) {
     try {
@@ -33,7 +29,6 @@ class MessageController {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
-    //   console.log(req.file)
       return res.status(200).json({ file: req.file });
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
