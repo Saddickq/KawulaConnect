@@ -1,11 +1,11 @@
 import { useAppStore } from "@/pages/store";
 import axios from "axios";
 import { format } from "date-fns";
-import { getColor } from "@/utils";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useRef, useState } from "react";
 import { IoArrowDownCircle, IoCloseSharp } from "react-icons/io5";
-import { MdFolderZip } from "react-icons/md";
+import RenderChannelMessages from "./RenderChannelMessages";
+import RenderDMMessages from "./RenderDMMessages";
+import { downLoadFile } from "@/pages/chat/helpers/fileHelper";
 
 const MessageField = () => {
   const scrollRef = useRef();
@@ -16,7 +16,6 @@ const MessageField = () => {
     selectedChatMessages,
     selectedChatData,
     selectedChatType,
-    userInfo,
     setSelectedChatMessages,
     setIsDownloading,
     setFileDownloadProgress,
@@ -73,192 +72,25 @@ const MessageField = () => {
               {format(new Date(message.createdAt), "PP")}
             </div>
           )}
-          {selectedChatType === "contact" && renderDMMessages(message)}
-          {selectedChatType === "channel" && renderChannelMessages(message)}
+          {selectedChatType === "contact" && (
+            <RenderDMMessages
+              message={message}
+              setShowImage={setShowImage}
+              setImageURL={setImageURL}
+            />
+          )}
+          {selectedChatType === "channel" && (
+            <RenderChannelMessages
+              message={message}
+              setShowImage={setShowImage}
+              setImageURL={setImageURL}
+            />
+          )}
         </div>
       );
     });
   };
 
-  const checkIfImage = (filePath) => {
-    const imageRegex = /\.(jpg|jpeg|svg|gif|png|webp|ico|tiff|bmp)$/i;
-    return imageRegex.test(filePath);
-  };
-
-  const downLoadFile = async (fileURL) => {
-    setIsDownloading(true);
-    setFileDownloadProgress(0);
-    const response = await axios.get(`/uploads/${fileURL}`, {
-      responseType: "blob",
-      onDownloadProgress: (progressEvent) => {
-        const percentDownloaded = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        setFileDownloadProgress(percentDownloaded);
-      },
-    });
-    const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = urlBlob;
-    link.setAttribute("download", fileURL);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(urlBlob);
-    setIsDownloading(false);
-  };
-
-  const renderChannelMessages = (message) => {
-    return (
-      <div
-        className={`${
-          message.sender._id !== userInfo._id ? "text-left" : "text-right"
-        }`}
-      >
-        {message.messageType === "text" && (
-          <div
-            className={`${
-              message.sender._id === userInfo._id
-                ? "bg-slate-800 text-neutral-100"
-                : "bg-slate-200 text-neutral-900"
-            } inline-block shadow-lg py-3 px-4 my-2 rounded-lg max-w-[60%] break-words`}
-          >
-            {message.content}
-          </div>
-        )}
-        {message.messageType === "file" && (
-          <div
-            className={`${
-              message.sender._id !== userInfo._id
-                ? "bg-slate-800 text-slate-100"
-                : "bg-slate-200 text-slate-900"
-            } inline-block shadow-lg p-2 md:py-3 md:px-4 my-2 rounded-lg max-w-[70%] md:max-w-[60%] break-words`}
-          >
-            {checkIfImage(message.fileURL) ? (
-              <div
-                className="cursor-pointer"
-                onClick={() => {
-                  setShowImage(true);
-                  setImageURL(message.fileURL);
-                }}
-              >
-                <img
-                  className="max-h-56 object-contain"
-                  src={`http://localhost:3000/uploads/${message.fileURL}`}
-                  alt="uploaded file"
-                />
-              </div>
-            ) : (
-              <div className="flex items-center justify-center gap-3">
-                <span>
-                  <MdFolderZip className="size-7" />
-                </span>
-                <span className="text-xs md:text-base">{message.fileURL}</span>
-                <span
-                  className="hover:bg-gray-200/55 cursor-pointer rounded-full duration-500 transition-all"
-                  onClick={() => downLoadFile(message.fileURL)}
-                >
-                  <IoArrowDownCircle className="size-7" />
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-        {message.sender._id !== userInfo._id ? (
-          <div className="flex items-center justify-start gap-2 my-1">
-            <Avatar className="w-5 h-5 overflow-hidden rounded-full">
-              {message.sender.image ? (
-                <AvatarImage src={message.sender.image} />
-              ) : (
-                <div
-                  className={`uppercase w-5 h-5 text-sm flex justify-center items-center rounded-full ${getColor(
-                    message.sender.color
-                  )}`}
-                >
-                  {message.sender.firstName
-                    ? message.sender.firstName.split("").shift()
-                    : message.sender.email.split("").shift()}
-                </div>
-              )}
-            </Avatar>
-
-            <span className="text-slate-800 text-sm">
-              {message.sender.firstName} {message.sender.lastName}
-            </span>
-            <span className="text-slate-800 text-xs">
-              {format(message.createdAt, "p")}
-            </span>
-          </div>
-        ) : (
-          <div className="text-xs text-gray-800">
-            {format(message.createdAt, "p")}
-          </div>
-        )}
-      </div>
-    );
-  };
-  const renderDMMessages = (message) => {
-    return (
-      <div
-        className={`${
-          message.sender !== selectedChatData._id ? "text-right" : "text-left"
-        }`}
-      >
-        {message.messageType === "text" && (
-          <div
-            className={`${
-              message.sender !== selectedChatData._id
-                ? "bg-slate-800 text-neutral-100"
-                : "bg-slate-200 text-neutral-900"
-            } inline-block shadow-lg py-3 px-4 my-2 rounded-lg max-w-[60%] break-words`}
-          >
-            {message.content}
-          </div>
-        )}
-        {message.messageType === "file" && (
-          <div
-            className={`${
-              message.sender !== selectedChatData._id
-                ? "bg-slate-800 text-slate-100"
-                : "bg-slate-200 text-slate-900"
-            } inline-block shadow-lg p-2 md:py-3 md:px-4 my-2 rounded-lg max-w-[70%] md:max-w-[60%] break-words`}
-          >
-            {checkIfImage(message.fileURL) ? (
-              <div
-                className="cursor-pointer"
-                onClick={() => {
-                  setShowImage(true);
-                  setImageURL(message.fileURL);
-                }}
-              >
-                <img
-                  className="max-h-56 object-contain"
-                  src={`http://localhost:3000/uploads/${message.fileURL}`}
-                  alt="uploaded file"
-                />
-              </div>
-            ) : (
-              <div className="flex items-center justify-center gap-3">
-                <span>
-                  <MdFolderZip className="size-7" />
-                </span>
-                <span className="text-xs md:text-base">{message.fileURL}</span>
-                <span
-                  className="hover:bg-gray-200/55 cursor-pointer rounded-full duration-500 transition-all"
-                  onClick={() => downLoadFile(message.fileURL)}
-                >
-                  <IoArrowDownCircle className="size-7" />
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-        <div className="text-xs text-gray-800">
-          {format(message.createdAt, "p")}
-        </div>
-      </div>
-    );
-  };
   return (
     <div
       className="flex-1 overflow-y-auto p-4 px-8 w-full"
@@ -273,7 +105,14 @@ const MessageField = () => {
           <div className="mb-5 flex gap-10">
             <button
               className="hover:bg-black/55 cursor-pointer rounded-full"
-              onClick={() => downLoadFile(imageURL)}
+              onClick={() =>
+                downLoadFile(
+                  imageURL,
+                  setIsDownloading,
+                  setFileDownloadProgress,
+                  setIsDownloading
+                )
+              }
             >
               <IoArrowDownCircle className="size-8 text-neutral-200" />
             </button>
