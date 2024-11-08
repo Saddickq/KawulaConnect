@@ -109,8 +109,8 @@ const NewDM = () => {
                     onClick={() => selectChat(contact)}
                   >
                     <Avatar className="w-10 h-10 overflow-hidden rounded-full">
-                      {contact.image ? (
-                        <AvatarImage src={contact.image} />
+                      {contact.avatar ? (
+                        <AvatarImage src={`http://localhost:3000/uploads/${contact.avatar}`} />
                       ) : (
                         <div
                           className={`uppercase w-10 h-10 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(

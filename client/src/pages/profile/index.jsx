@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "../store";
 import { colors, getColor } from "@/utils";
 import { IoArrowBack } from "react-icons/io5";
@@ -11,21 +11,61 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const Profile = () => {
-    const { userInfo, setUserInfo } = useAppStore();
+  const { userInfo, setUserInfo, setIsUploading, setFileUploadProgress } =
+    useAppStore();
   const navigate = useNavigate();
-  
+  const fileInputRef = useRef(null);
+
   const [image, setImage] = useState(null);
   const [redirect, setRedirect] = useState("");
   const [lastName, setLastName] = useState("");
   const [hovered, setHovered] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [selectedColor, setSelectedColor] = useState(0);
-  
-//   useEffect(() => {
-//     if (userInfo.profileSetup === true) {
-//       navigate("/chat");
-//     }
-//   }, []);
+
+  useEffect(() => {
+    setImage(userInfo.avatar)
+    setFirstName(userInfo.firstName)
+    setLastName(userInfo.lastName)
+  }, [])
+
+  const handleFileClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const uploadProfilePicture = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        setIsUploading(true);
+        const { data, status } = await axios.post(
+          "/api/v1/upload_file",
+          formData,
+          {
+            onUploadProgress: (data) => {
+              setFileUploadProgress(
+                Math.round((data.loaded * 100) / data.total)
+              );
+            },
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (data.file && status === 200) {
+          setImage(data.file.filename);
+          setIsUploading(false);
+        }
+      } catch (error) {
+        setIsUploading(false);
+        console.error(error);
+      }
+    }
+  };
 
   const saveChanges = async () => {
     if (!firstName || !lastName) {
@@ -38,7 +78,12 @@ const Profile = () => {
 
     try {
       await axios
-        .put("/api/v1/updateUser", { firstName, lastName, selectedColor })
+        .put("/api/v1/updateUser", {
+          firstName,
+          lastName,
+          selectedColor,
+          avatar: image,
+        })
         .then(({ data }) => {
           setUserInfo(data);
           setRedirect("/chat");
@@ -51,6 +96,9 @@ const Profile = () => {
     }
   };
 
+  const profile = () => {
+    const image = userInfo.avatar ? userInfo.avatar : null
+  }
   if (redirect) {
     return <Navigate to={redirect} />;
   }
@@ -66,15 +114,15 @@ const Profile = () => {
         </div>
         <div className="grid grid-cols-2">
           <div
-            className={`w-32 h-32 md:w-40 md:h-40 border-2 rounded-full flex justify-center cursor-pointer items-center p-4 ${getColor(
+            className={`w-32 h-32 md:w-40 md:h-40 border-2 rounded-full flex justify-center cursor-pointer items-center ${getColor(
               selectedColor
             )}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            <Avatar className="justify-center items-center">
+            <Avatar className="justify-center items-center w-full h-full">
               {image ? (
-                <AvatarImage src={image} />
+                <AvatarImage className="" src={`http://localhost:3000/uploads/${image}`} />
               ) : (
                 <div className="text-4xl uppercase">
                   {firstName
@@ -85,14 +133,22 @@ const Profile = () => {
             </Avatar>
             {hovered && (
               <>
-                <div className="absolute w-32 h-32 md:w-40 md:h-40 insert-0 flex justify-center items-center cursor-pointer bg-black/50 rounded-full">
+                <div
+                  onClick={handleFileClick}
+                  className="absolute w-32 h-32 md:w-40 md:h-40 insert-0 flex justify-center items-center cursor-pointer bg-black/50 rounded-full"
+                >
                   {image ? (
                     <FaTrash className="text-3xl text-white" />
                   ) : (
                     <FaPlus className="text-3xl text-white" />
                   )}
                 </div>
-                <input className="hidden" type="file" />
+                <input
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={uploadProfilePicture}
+                  type="file"
+                />
               </>
             )}
           </div>

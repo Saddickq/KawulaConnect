@@ -13,8 +13,8 @@ const MessageHeader = () => {
           {selectedChatType === "contact" ? (
             <>
               <Avatar className="w-12 h-12 overflow-hidden rounded-full">
-                {selectedChatData.image ? (
-                  <AvatarImage src={selectedChatData.image} />
+                {selectedChatData.avatar ? (
+                  <AvatarImage src={`http://localhost:3000/uploads/${selectedChatData.avatar}`} />
                 ) : (
                   <div
                     className={`uppercase w-12 h-12 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(

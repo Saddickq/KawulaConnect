@@ -26,14 +26,14 @@ const Chat = () => {
     <div className="h-screen overflow-hidden">
       {isUploading && (
         <div className="h-full w-full text-neutral-200 fixed top-0 z-[100] left-0 bg-black/80 flex gap-4 items-center justify-center flex-col backdrop-blur-lg">
-          <h5 className="text-5xl animate-pulse">Uploding File</h5>
-          {fileUploadProgress}%
+          <h3 className="text-5xl animate-pulse">Uploding File</h3>
+          <h6 className="text-2xl">{fileUploadProgress}%</h6>
         </div>
       )}
       {isDownloading && (
         <div className="h-full w-full text-neutral-200 fixed top-0 z-[100] left-0 bg-black/80 flex gap-4 items-center justify-center flex-col backdrop-blur-lg">
-          <h5 className="text-4xl animate-pulse">Downloading File</h5>
-          {fileDownloadProgress}%
+          <h3 className="text-5xl animate-pulse">Downloading File</h3>
+          <h6 className="text-2xl">{fileDownloadProgress}%</h6>
         </div>
       )}
       <div className="grid h-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4">

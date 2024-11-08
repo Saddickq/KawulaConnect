@@ -32,11 +32,11 @@ const ProfileBottom = () => {
       <div className="flex items-center w-full justify-between px-5 gap-4">
         <div className="flex relative items-center gap-5">
           <Avatar className="w-10 h-10 overflow-hidden rounded-full">
-            {userInfo.image ? (
-              <AvatarImage src={userInfo.image} />
+            {userInfo.avatar ? (
+              <AvatarImage src={`http://localhost:3000/uploads/${userInfo.avatar}`} />
             ) : (
               <div
-                className={`uppercase w-10 h-10 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(
+                className={`uppercase w-10 h-10 text-lg flex justify-center items-center rounded-full ${getColor(
                   userInfo.color
                 )}`}
               >
