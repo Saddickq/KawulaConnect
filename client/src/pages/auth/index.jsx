@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Navigate } from "react-router-dom";
-import { toast } from "sonner";
 import myImage from "@/assets/kawula.png";
-import axios from "axios";
 import { useAppStore } from "../store";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 const Auth = () => {
   const { setUserInfo } = useAppStore();
@@ -26,67 +24,6 @@ const Auth = () => {
         [name]: value,
       };
     });
-  };
-
-  const handleRegister = async () => {
-    if (formData.confirmPassword !== formData.password) {
-      toast("Passwords do not match", {
-        type: "error",
-        style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-      });
-      return;
-    }
-    try {
-      const { data } = await axios.post("/auth/register", {
-        email: formData.email,
-        password: formData.password,
-      });
-      setUserInfo(data.newUser);
-      setRedirect("/profile");
-      toast(data.message, {
-        type: "info",
-        style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-      });
-    } catch (error) {
-      toast(error.response.data.message, {
-        type: "error",
-        style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-      });
-    }
-  };
-
-  const handleLogin = async () => {
-    if (!formData.email || !formData.password) {
-      toast("Please provide all Credentials", {
-        type: "error",
-        style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-      });
-      return;
-    }
-    try {
-      const { data, status } = await axios.post("/auth/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-      if (status === 200) {
-        setUserInfo(data.user);
-        setRedirect("/chat");
-        toast(data.message, {
-            type: "success",
-            style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-          });
-      } else {
-        toast(data.message, {
-            type: "error",
-            style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-          });
-      }
-    } catch (error) {
-      toast(error.response.data.message, {
-        type: "error",
-        style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
-      });
-    }
   };
 
   if (redirect) {
@@ -118,61 +55,22 @@ const Auth = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="login" className="space-y-2">
-              <Input
-                placeholder="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+            <TabsContent value="login">
+              <LoginForm
+                formData={formData}
+                handleChange={handleChange}
+                setUserInfo={setUserInfo}
+                setRedirect={setRedirect}
               />
-              <Input
-                placeholder="password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <div>
-                <Button
-                  onClick={handleLogin}
-                  className="w-full font-semibold mt-4"
-                >
-                  login
-                </Button>
-              </div>
             </TabsContent>
 
-            <TabsContent value="register" className="space-y-2">
-              <Input
-                placeholder="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+            <TabsContent value="register">
+              <RegisterForm
+                formData={formData}
+                handleChange={handleChange}
+                setUserInfo={setUserInfo}
+                setRedirect={setRedirect}
               />
-              <Input
-                placeholder="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <Input
-                placeholder="Confirm password"
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-              <div className="">
-                <Button
-                  className="w-full font-semibold mt-2"
-                  onClick={handleRegister}
-                >
-                  register
-                </Button>
-              </div>
             </TabsContent>
           </Tabs>
         </div>
