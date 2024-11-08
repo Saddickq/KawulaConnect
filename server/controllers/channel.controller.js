@@ -47,7 +47,7 @@ class ChannelController {
         path: "messages",
         populate: {
           path: "sender",
-          select: "firstName lastName email _id image color",
+          select: "firstName lastName email _id avatar color",
         },
       });
       if (!channel) {

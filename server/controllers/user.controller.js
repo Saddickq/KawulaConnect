@@ -13,7 +13,7 @@ class UserController {
   
   static async updateUser(req, res) {
     try {
-      const { firstName, lastName, selectedColor } = req.body;
+      const { firstName, lastName, selectedColor, avatar } = req.body;
       const userId = req.userId;
       const user = await User.findById(userId);
       if (!user) {
@@ -22,6 +22,7 @@ class UserController {
       user.set({
         firstName,
         lastName,
+        avatar,
         color: selectedColor,
         profileSetup: true,
       });

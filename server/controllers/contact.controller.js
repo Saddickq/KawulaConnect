@@ -71,7 +71,7 @@ class ContactController {
             email: "$contactInfo.email",
             firstName: "$contactInfo.firstName",
             lastName: "$contactInfo.lastName",
-            image: "$contactInfo.image",
+            avatar: "$contactInfo.avatar",
             profileSetup: "$contactInfo.profileSetup",
             color: "$contactInfo.color",
           },

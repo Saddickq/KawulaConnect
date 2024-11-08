@@ -35,7 +35,7 @@ const setupSocket = (server) => {
     });
 
     const messageData = await Message.findById(createdMessage._id)
-      .populate("sender", "id email firstName lastName image color")
+      .populate("sender", "id email firstName lastName avatar color")
       .exec();
 
     await Channel.findByIdAndUpdate(channelId, {
@@ -66,8 +66,8 @@ const setupSocket = (server) => {
     const createdMessage = await Message.create(message);
 
     const messageData = await Message.findById(createdMessage._id)
-      .populate("sender", "id email firstName lastName image color")
-      .populate("receiver", "id email firstName lastName image color");
+      .populate("sender", "id email firstName lastName avatar color")
+      .populate("receiver", "id email firstName lastName avatar color");
 
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("receiveMessage", messageData);
