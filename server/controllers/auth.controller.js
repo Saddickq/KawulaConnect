@@ -57,9 +57,11 @@ class AuthController {
           SECRET, { expiresIn: "1d" }
         );
         res.cookie("token", token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            maxAge: 24 * 60 * 60 * 1000,
+          });
         return res.status(200).json({ user, message: "You are logged in" });
       }
       return res
