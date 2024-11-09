@@ -25,11 +25,15 @@ const ProtectedRoute = ({ children }) => {
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Navigate to="/auth" replace />,
+  },
+  {
     path: "/auth",
     element: (
-    //   <AuthRoute>
-        <Auth />
-    //   </AuthRoute>
+      //   <AuthRoute>
+      <Auth />
+      //   </AuthRoute>
     ),
   },
   {
@@ -37,7 +41,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Profile />
-       </ProtectedRoute>
+      </ProtectedRoute>
     ),
   },
   {
@@ -45,7 +49,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Chat />
-       </ProtectedRoute>
+      </ProtectedRoute>
     ),
   },
 ]);
