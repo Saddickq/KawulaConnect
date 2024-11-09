@@ -49,8 +49,8 @@ const router = createBrowserRouter([
     ),
   },
 ]);
-
-axios.defaults.baseURL = "http://localhost:3000";
+// "http://localhost:3000"
+axios.defaults.baseURL = "https://kawula-connect.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {
