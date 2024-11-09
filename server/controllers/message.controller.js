@@ -1,5 +1,6 @@
 import Message from "../models/message.model.js";
-
+import cloudinary from "../config/cloudinary.js";
+import fs from "fs";
 
 class MessageController {
   static async getMessages(req, res) {
@@ -26,10 +27,12 @@ class MessageController {
 
   static async uploadFile(req, res) {
     try {
-      if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded" });
-      }
-      return res.status(200).json({ file: req.file });
+      const image = req.file.path;
+      const result = await cloudinary.uploader.upload(image, {
+        folder: "Kawula",
+      });
+      fs.unlinkSync(image);
+      res.json({ url: result.secure_url });
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }

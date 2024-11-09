@@ -81,7 +81,7 @@ const MessageBar = () => {
             },
           }
         );
-        if (data.file && status === 200) {
+        if (data.url && status === 200) {
           setIsUploading(false);
           if (selectedChatType === "contact") {
             socket.emit("sendMessage", {
@@ -89,7 +89,7 @@ const MessageBar = () => {
               receiver: selectedChatData._id,
               content: undefined,
               messageType: "file",
-              fileURL: data.file.filename,
+              fileURL: data.url,
             });
           } else if (selectedChatType === "channel") {
             socket.emit("sendChannelMessage", {
@@ -97,7 +97,7 @@ const MessageBar = () => {
               channelId: selectedChatData._id,
               content: undefined,
               messageType: "file",
-              fileURL: data.file.filename,
+              fileURL: data.url,
             });
           }
         }

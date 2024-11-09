@@ -14,7 +14,7 @@ const MessageHeader = () => {
             <>
               <Avatar className="w-12 h-12 overflow-hidden rounded-full">
                 {selectedChatData.avatar ? (
-                  <AvatarImage src={`http://localhost:3000/uploads/${selectedChatData.avatar}`} />
+                  <AvatarImage src={selectedChatData.avatar} />
                 ) : (
                   <div
                     className={`uppercase w-12 h-12 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(

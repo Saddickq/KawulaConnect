@@ -46,7 +46,7 @@ const RenderDMMessages = ({ message, setShowImage, setImageURL }) => {
             >
               <img
                 className="max-h-56 object-contain"
-                src={`http://localhost:3000/uploads/${message.fileURL}`}
+                src={message.fileURL}
                 alt="uploaded file"
               />
             </div>

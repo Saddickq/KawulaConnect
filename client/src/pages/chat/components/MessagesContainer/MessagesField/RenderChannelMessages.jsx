@@ -33,7 +33,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
       {message.messageType === "file" && (
         <div
           className={`${
-            message.sender._id !== userInfo._id
+            message.sender._id === userInfo._id
               ? "bg-slate-800 text-slate-100"
               : "bg-slate-200 text-slate-900"
           } inline-block shadow-lg p-2 md:py-3 md:px-4 my-2 rounded-lg max-w-[70%] md:max-w-[60%] break-words`}
@@ -48,7 +48,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
             >
               <img
                 className="max-h-56 object-contain"
-                src={`http://localhost:3000/uploads/${message.fileURL}`}
+                src={message.fileURL}
                 alt="uploaded file"
               />
             </div>
@@ -57,7 +57,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
               <span>
                 <MdFolderZip className="size-7" />
               </span>
-              <span className="text-xs md:text-base">{message.fileURL}</span>
+              <span className="text-xs truncate md:text-base">{message.fileURL.split('/').pop()}</span>
               <span
                 className="hover:bg-gray-200/55 cursor-pointer rounded-full duration-500 transition-all"
                 onClick={() =>
@@ -79,7 +79,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
         <div className="flex items-center justify-start gap-2 my-1">
           <Avatar className="w-5 h-5 overflow-hidden rounded-full">
             {message.sender.avatar ? (
-              <AvatarImage src={`http://localhost:3000/uploads/${message.sender.avatar}`} />
+              <AvatarImage src={message.sender.avatar} />
             ) : (
               <div
                 className={`uppercase w-5 h-5 text-sm flex justify-center items-center rounded-full ${getColor(

@@ -24,7 +24,6 @@ const NewChannel = () => {
   const { setSelectedChatType, setSelectedChatData, addChannels, setChannels } =
     useAppStore();
   const [error, setError] = useState("");
-  const [searchedContacts, setSearchedContacts] = useState([]);
   const [channelModal, setChannelModal] = useState(false);
   const [allContacts, setAllContacts] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);

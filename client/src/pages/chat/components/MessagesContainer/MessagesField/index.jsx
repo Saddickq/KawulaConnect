@@ -131,7 +131,7 @@ const MessageField = () => {
           <div>
             <img
               className="max-h-xl md:max-h-4xl object-cover"
-              src={`http://localhost:3000/uploads/${imageURL}`}
+              src={imageURL}
               alt="photo"
             />
           </div>

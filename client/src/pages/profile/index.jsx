@@ -56,8 +56,8 @@ const Profile = () => {
             },
           }
         );
-        if (data.file && status === 200) {
-          setImage(data.file.filename);
+        if (data.url && status === 200) {
+          setImage(data.url);
           setIsUploading(false);
         }
       } catch (error) {
@@ -96,9 +96,6 @@ const Profile = () => {
     }
   };
 
-  const profile = () => {
-    const image = userInfo.avatar ? userInfo.avatar : null
-  }
   if (redirect) {
     return <Navigate to={redirect} />;
   }
@@ -122,7 +119,7 @@ const Profile = () => {
           >
             <Avatar className="justify-center items-center w-full h-full">
               {image ? (
-                <AvatarImage className="" src={`http://localhost:3000/uploads/${image}`} />
+                <AvatarImage className="" src={image} />
               ) : (
                 <div className="text-4xl uppercase">
                   {firstName

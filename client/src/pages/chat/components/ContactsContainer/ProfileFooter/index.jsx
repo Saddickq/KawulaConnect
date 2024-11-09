@@ -33,7 +33,7 @@ const ProfileBottom = () => {
         <div className="flex relative items-center gap-5">
           <Avatar className="w-10 h-10 overflow-hidden rounded-full">
             {userInfo.avatar ? (
-              <AvatarImage src={`http://localhost:3000/uploads/${userInfo.avatar}`} />
+              <AvatarImage src={userInfo.avatar} />
             ) : (
               <div
                 className={`uppercase w-10 h-10 text-lg flex justify-center items-center rounded-full ${getColor(
