@@ -12,7 +12,7 @@ export const downLoadFile = async (
 ) => {
   setIsDownloading(true);
   setFileDownloadProgress(0);
-  const response = await axios.get(`/uploads/${fileURL}`, {
+  const response = await axios.get(fileURL, {
     responseType: "blob",
     onDownloadProgress: (progressEvent) => {
       const percentDownloaded = Math.round(
@@ -24,7 +24,8 @@ export const downLoadFile = async (
   const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement("a");
   link.href = urlBlob;
-  link.setAttribute("download", fileURL);
+  const fileName = fileURL.split("/").pop();
+  link.setAttribute("download", fileName);
   document.body.appendChild(link);
   link.click();
   link.remove();

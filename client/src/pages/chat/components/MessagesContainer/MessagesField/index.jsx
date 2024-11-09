@@ -127,10 +127,9 @@ const MessageField = () => {
               <IoCloseSharp className="size-8 text-neutral-200" />
             </button>
           </div>
-
-          <div>
+          <div className="md:max-h-[70%] md:max-w-[70%]">
             <img
-              className="max-h-xl md:max-h-4xl object-cover"
+              className="object-cover"
               src={imageURL}
               alt="photo"
             />
