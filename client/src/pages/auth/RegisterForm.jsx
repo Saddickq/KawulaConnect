@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import axios from "axios";
 import { AiOutlineLoading } from "react-icons/ai";
+import { useState } from "react";
 
 const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
   const [isLoading, setIsLoading] = useState(false);
