@@ -2,8 +2,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import axios from "axios";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const handleRegister = async () => {
     if (formData.confirmPassword !== formData.password) {
       toast("Passwords do not match", {
@@ -13,17 +15,27 @@ const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
       return;
     }
     try {
-      const { data } = await axios.post("/auth/register", {
+      setIsLoading(true);
+      const { data, status } = await axios.post("/auth/register", {
         email: formData.email,
         password: formData.password,
       });
-      setUserInfo(data.newUser);
-      setRedirect("/profile");
+      if (data.newUser && status === 200) {
+        setUserInfo(data.newUser);
+        setIsLoading(false);
+        setRedirect("/profile");
+        toast(data.message, {
+          type: "success",
+          style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
+        });
+      }
+      setIsLoading(false);
       toast(data.message, {
         type: "info",
         style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
       });
     } catch (error) {
+      setIsLoading(false);
       toast(error.response.data.message, {
         type: "error",
         style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
@@ -54,8 +66,15 @@ const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
         onChange={handleChange}
       />
       <div className="">
-        <Button className="w-full font-semibold mt-2" onClick={handleRegister}>
-          register
+        <Button
+          className="w-full font-semibold mt-2"
+          disabled={isLoading}
+          onClick={handleRegister}
+        >
+          {isLoading && (
+            <AiOutlineLoading className="animate-spin size-5 font-bold mr-3 text-white" />
+          )}
+          {isLoading ? "Please wait..." : "Register"}
         </Button>
       </div>
     </div>

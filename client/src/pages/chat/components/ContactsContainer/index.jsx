@@ -4,6 +4,7 @@ import ProfileBottom from "./ProfileFooter";
 import axios from "axios";
 import { useAppStore } from "@/pages/store";
 import ContactList from "./ContactList";
+import kawula from "../../../../../public/KawulaConnect.png";
 import NewChannel from "./NewChannel";
 
 const ContactsContainer = () => {
@@ -40,8 +41,9 @@ const ContactsContainer = () => {
 
   return (
     <div className="bg-slate-800 w-full h-full flex flex-col">
-      <div className="h-[10vh] flex items-center">
-        <h1 className="text-3xl font-bold text-neutral-50 pl-5">logo</h1>
+      <div className="h-[10vh] flex mt-4 items-center">
+        <img src={kawula} className="h-32 w-36 md:h-20 md:w-24" alt="App logo" />
+        <h1 className="text-green-200 md:text-3xl text-4xl -ml-2 font-bold">Kawula</h1>
       </div>
 
       <div className="flex-grow flex flex-col justify-start">

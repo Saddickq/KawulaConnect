@@ -32,12 +32,12 @@ const Auth = () => {
 
   return (
     <div className="h-screen w-screen flex items-center justify-center">
-      <div className="shadow-xl p-6 w-[85vw] md:p-10 md:w-[55vw] lg:p-12 lg:w-[40vw] rounded-2xl flex flex-col justify-center items-center gap-3">
+      <div className="shadow-xl p-4 w-full sm:w-[80%] sm:p-6 md:w-[60%] md:p-8 lg:w-[40%] lg:p-10 rounded-2xl flex flex-col justify-center items-center gap-3">
         <div className="flex items-end gap-2">
-          <h1 className="text-3xl -mb-2 text-slate-800">Kawula</h1>
-          <img src={myImage} alt="Kawula" className="size-10" />
+          <h1 className="text-2xl md:text-3xl text-slate-800">Kawula</h1>
+          <img src={myImage} alt="Kawula" className="size-10 animate-bounce" />
         </div>
-        <p className="">Sign in to chat with friends</p>
+        <p className="text-sm md:text-base">Sign in to chat with friends</p>
         <div className="w-full">
           <Tabs defaultValue="login" className="flex gap-2 flex-col">
             <TabsList className="grid grid-cols-2 w-full">

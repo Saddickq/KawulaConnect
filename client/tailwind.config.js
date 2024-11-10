@@ -51,6 +51,26 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        spin: "spin 1s linear infinite",
+        bounce: "bounce 1s infinite",
+      },
+      keyframes: {
+        spin: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        bounce: {
+            "0%, 100%": {
+              transform: "translateY(-25%)",
+              "animation-timing-function": "cubic-bezier(0.8, 0, 1, 1)"
+            },
+            "50%": {
+              transform: "translateY(0)",
+              "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)"
+            }
+          }
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

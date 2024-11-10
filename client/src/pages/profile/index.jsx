@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import { FaTrash, FaPlus } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const Profile = () => {
   const { userInfo, setUserInfo, setIsUploading, setFileUploadProgress } =
     useAppStore();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [image, setImage] = useState(null);
   const [redirect, setRedirect] = useState("");
@@ -24,10 +26,10 @@ const Profile = () => {
   const [selectedColor, setSelectedColor] = useState(0);
 
   useEffect(() => {
-    setImage(userInfo.avatar)
-    setFirstName(userInfo.firstName)
-    setLastName(userInfo.lastName)
-  }, [])
+    setImage(userInfo.avatar);
+    setFirstName(userInfo.firstName);
+    setLastName(userInfo.lastName);
+  }, []);
 
   const handleFileClick = () => {
     if (fileInputRef.current) {
@@ -77,6 +79,7 @@ const Profile = () => {
     }
 
     try {
+      setIsLoading(true);
       await axios
         .put("/api/v1/updateUser", {
           firstName,
@@ -86,9 +89,11 @@ const Profile = () => {
         })
         .then(({ data }) => {
           setUserInfo(data);
+          setIsLoading(false);
           setRedirect("/chat");
         });
     } catch (error) {
+      setIsLoading(false);
       toast(error.response.data.message, {
         type: "error",
         style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
@@ -167,7 +172,7 @@ const Profile = () => {
                   <div
                     key={index}
                     onClick={() => setSelectedColor(index)}
-                    className={`h-8 w-8 ${color} rounded-full cursor-pointer 
+                    className={`h-5 w-5 md:h-8 md:w-8 ${color} rounded-full cursor-pointer 
                     ${
                       selectedColor === index
                         ? "outline outline-1 outline-white"
@@ -179,7 +184,12 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <Button onClick={saveChanges}>Save Changes</Button>
+        <Button onClick={saveChanges} disabled={isLoading}>
+          {isLoading && (
+            <AiOutlineLoading className="animate-spin size-5 font-bold mr-3 text-white" />
+          )}
+          {isLoading ? "Please wait..." : "Save Changes"}
+        </Button>
       </div>
     </div>
   );
