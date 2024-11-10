@@ -34,7 +34,7 @@ const ContactList = ({ contacts, isChannel = false }) => {
             {!isChannel && (
               <Avatar className="w-8 h-8 overflow-hidden rounded-full">
                 {contact.avatar ? (
-                  <AvatarImage src={`http://localhost:3000/uploads/${contact.avatar}`} alt="profile" />
+                  <AvatarImage src={contact.avatar} alt="profile" />
                 ) : (
                   <div
                     className={`uppercase w-8 h-8 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(
