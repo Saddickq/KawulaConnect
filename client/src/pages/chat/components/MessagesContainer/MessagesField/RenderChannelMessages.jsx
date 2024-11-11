@@ -25,7 +25,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
             message.sender._id === userInfo._id
               ? "bg-slate-800 text-neutral-100"
               : "bg-slate-200 text-neutral-900"
-          } inline-block shadow-lg py-3 px-4 my-2 rounded-lg max-w-[60%] break-words`}
+          } inline-block shadow-lg text-sm md:text-base py-3 px-4 my-2 rounded-lg max-w-[60%] break-words`}
         >
           {message.content}
         </div>

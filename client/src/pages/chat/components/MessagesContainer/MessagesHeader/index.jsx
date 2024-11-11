@@ -12,7 +12,7 @@ const MessageHeader = () => {
         <div className="flex gap-4 md:gap-8 items-center justify-center">
           {selectedChatType === "contact" ? (
             <>
-              <Avatar className="w-12 h-12 overflow-hidden rounded-full">
+              <Avatar className="w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-full">
                 {selectedChatData.avatar ? (
                   <AvatarImage src={selectedChatData.avatar} />
                 ) : (
@@ -29,8 +29,8 @@ const MessageHeader = () => {
               </Avatar>
               <div className="flex flex-col">
                 {selectedChatData.profileSetup ? (
-                  <span className="text-slate-800 text-xl">
-                    {selectedChatData.firstName} {selectedChatData.lastName}
+                  <span className="text-slate-800 text-lg md:text-xl">
+                    {`${selectedChatData.firstName} ${selectedChatData.lastName}`}
                   </span>
                 ) : (
                   <span className="text-xs">{selectedChatData.email}</span>

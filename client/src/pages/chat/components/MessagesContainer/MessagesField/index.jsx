@@ -93,7 +93,7 @@ const MessageField = () => {
 
   return (
     <div
-      className="flex-1 overflow-y-auto p-4 px-8 w-full"
+      className="flex-1 overflow-y-auto p-4 md:px-8 w-full"
       style={{
         msOverflowStyle: "none",
         scrollbarWidth: "none",

@@ -112,10 +112,10 @@ const MessageBar = () => {
   };
 
   return (
-    <div className="h-[10vh] flex justify-center items-center w-full mb-4 gap-3 md:gap-6">
+    <div className="h-[10vh] flex justify-center items-center w-full mb-2 md:mb-4 gap-3 md:gap-6">
       <div className="flex-1 max-w-[80%] lg:max-w-[70%] flex border border-slate-800 rounded-xl justify-center items-center gap-2 md:gap-5 pr-2 md:pr-5">
         <input
-          className="flex-1 flex p-2 md:px-4 py-2 bg-transparent rounded-xl focus:border-none focus:outline-none"
+          className="flex-1 flex p-3 md:px-4 py-2 bg-transparent rounded-xl focus:border-none focus:outline-none"
           placeholder="Enter Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -124,7 +124,7 @@ const MessageBar = () => {
           className="text-slate-800 cursor-pointer hover:opacity-85 transition-all duration-300"
           onClick={handleAttachmentClick}
         >
-          <TiAttachmentOutline className="size-7 " />
+          <TiAttachmentOutline className="size-5 md:size-7 " />
         </button>
         <input
           type="file"
@@ -134,7 +134,7 @@ const MessageBar = () => {
         />
         <MdOutlineEmojiEmotions
           onClick={() => setEmojiPickerOpen(true)}
-          className="size-7 text-slate-800 hover:opacity-85 transition-all duration-300 cursor-pointer"
+          className="size-5 md:size-7 text-slate-800 hover:opacity-85 transition-all duration-300 cursor-pointer"
         />
         <div className="absolute right-50 bottom-20" ref={emojiRef}>
           <EmojiPicker

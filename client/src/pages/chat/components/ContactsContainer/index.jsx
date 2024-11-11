@@ -42,27 +42,45 @@ const ContactsContainer = () => {
   return (
     <div className="bg-slate-800 w-full h-full flex flex-col">
       <div className="h-[10vh] flex mt-4 items-center">
-        <img src={kawula} className="h-32 w-36 md:h-20 md:w-24" alt="App logo" />
-        <h1 className="text-green-200 md:text-3xl text-4xl -ml-2 font-bold">Kawula</h1>
+        <img
+          src={kawula}
+          className="h-20 w-24"
+          alt="App logo"
+        />
+        <h1 className="text-green-200 text-3xl -ml-2 font-bold">
+          Kawula
+        </h1>
       </div>
 
       <div className="flex-grow flex flex-col justify-start">
-        <div className="my-4">
+        <div className="my-4 h-1/2">
           <div className="flex items-center justify-between pr-10">
             <Title text="direct messages" />
             <NewDM />
           </div>
-          <div className="overflow-y-auto">
+          <div
+            className="overflow-y-auto h-full"
+            style={{
+              msOverflowStyle: "none",
+              scrollbarWidth: "none",
+            }}
+          >
             <ContactList contacts={directMessageContacts} />
           </div>
         </div>
 
-        <div className="my-4">
+        <div className="my-4 h-1/2">
           <div className="flex items-center justify-between pr-10">
             <Title text="channels" />
             <NewChannel />
           </div>
-          <div className="overflow-y-auto">
+          <div
+            className="overflow-y-auto h-full"
+            style={{
+              msOverflowStyle: "none",
+              scrollbarWidth: "none",
+            }}
+          >
             <ContactList contacts={channels} isChannel={true} />
           </div>
         </div>
