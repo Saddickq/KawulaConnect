@@ -21,7 +21,7 @@ const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
         email: formData.email,
         password: formData.password,
       });
-      if (data.newUser && status === 200) {
+      if (data.newUser && status === 201) {
         setUserInfo(data.newUser);
         setIsLoading(false);
         setRedirect("/profile");

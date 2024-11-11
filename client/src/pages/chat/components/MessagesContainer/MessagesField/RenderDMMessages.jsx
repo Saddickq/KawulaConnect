@@ -55,7 +55,7 @@ const RenderDMMessages = ({ message, setShowImage, setImageURL }) => {
               <span>
                 <MdFolderZip className="size-7" />
               </span>
-              <span className="text-xs md:text-base">{message.fileURL.split('/').pop()}</span>
+              <span className="text-xs truncate md:text-base">{message.fileURL.split('/').pop()}</span>
               <span
                 className="hover:bg-gray-200/55 cursor-pointer rounded-full duration-500 transition-all"
                 onClick={() =>
