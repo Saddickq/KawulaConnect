@@ -14,7 +14,7 @@ const ProfileBottom = () => {
   const [redirect, setRedirect] = useState("");
 
   const handleLogout = async () => {
-    const { data } = await axios.get("/auth/logout");
+    const { data } = await axios.get("/api/auth/logout");
     setUserInfo("");
     setRedirect("/auth");
     toast(data.message, {

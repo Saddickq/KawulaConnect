@@ -17,7 +17,7 @@ const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
     }
     try {
       setIsLoading(true);
-      const { data, status } = await axios.post("/auth/register", {
+      const { data, status } = await axios.post("/api/auth/register", {
         email: formData.email,
         password: formData.password,
       });
