@@ -53,13 +53,13 @@ const ContactsContainer = () => {
       </div>
 
       <div className="flex-grow flex flex-col justify-start">
-        <div className="my-4 h-1/2">
+        <div className="my-4">
           <div className="flex items-center justify-between pr-10">
             <Title text="direct messages" />
             <NewDM />
           </div>
           <div
-            className="overflow-y-auto h-full"
+            className="overflow-y-auto max-h-64"
             style={{
               msOverflowStyle: "none",
               scrollbarWidth: "none",
@@ -69,13 +69,13 @@ const ContactsContainer = () => {
           </div>
         </div>
 
-        <div className="my-4 h-1/2">
+        <div className="my-4 flex-1">
           <div className="flex items-center justify-between pr-10">
             <Title text="channels" />
             <NewChannel />
           </div>
           <div
-            className="overflow-y-auto h-full"
+            className="overflow-y-auto max-h-56"
             style={{
               msOverflowStyle: "none",
               scrollbarWidth: "none",
