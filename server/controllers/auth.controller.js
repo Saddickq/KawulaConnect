@@ -21,16 +21,10 @@ class AuthController {
             expiresIn: "1d",
           }
         );
-
-        res.cookie("token", token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "None",
-          maxAge: 24 * 60 * 60 * 1000,
-        });
         return res
           .status(201)
           .json({
+            token,
             newUser,
             message: "Finish setting up your profile to proceed",
           });
@@ -58,13 +52,7 @@ class AuthController {
           { id: user._id, email: user.email },
           SECRET, { expiresIn: "1d" }
         );
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "None",
-            maxAge: 24 * 60 * 60 * 1000,
-          });
-        return res.status(200).json({ user, message: "You are logged in" });
+        return res.status(200).json({ user, message: "You are logged in", token });
       }
       return res
         .status(401)
@@ -74,16 +62,6 @@ class AuthController {
         .status(500)
         .json({ message: "Something went wrong, please try again later" });
     }
-  }
-  static async logout(req, res) {
-    res
-      .cookie("token", "", {
-        httpOnly: true,
-        secure: true,
-        maxAge: 1,
-      })
-      .status(200)
-      .json({ message: "You're logged out successfully" });
   }
 }
 

@@ -31,9 +31,12 @@ const NewDM = () => {
   const searchContacts = async (searchTerm) => {
     try {
       if (searchTerm.length > 0) {
-        const { data, status } = await axios.post("/api/search_contacts", {
-          searchTerm,
-        });
+        const token = localStorage.getItem("token");
+        const { data, status } = await axios.post(
+          "/api/search_contacts",
+          { searchTerm },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         if (status === 200 && data.contacts) {
           setSearchedContacts(data.contacts);
         } else {

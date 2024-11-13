@@ -14,10 +14,10 @@ const ProfileBottom = () => {
   const [redirect, setRedirect] = useState("");
 
   const handleLogout = async () => {
-    const { data } = await axios.get("/api/auth/logout");
+    localStorage.removeItem("token");
     setUserInfo("");
     setRedirect("/auth");
-    toast(data.message, {
+    toast("You're logged out successfully", {
       type: "success",
       style: { backgroundColor: "#0f141e", color: "#fff", fontSize: 15 },
     });

@@ -24,9 +24,14 @@ const MessageField = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const { data, status } = await axios.post("/api/v1/get-messages", {
-          id: selectedChatData._id,
-        });
+        const token = localStorage.getItem("token");
+        const { data, status } = await axios.post(
+          "/api/v1/get-messages",
+          {
+            id: selectedChatData._id,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         if (data.messages && status === 200) {
           setSelectedChatMessages(data.messages);
         }
@@ -128,11 +133,7 @@ const MessageField = () => {
             </button>
           </div>
           <div className="md:max-h-[70%] md:max-w-[70%]">
-            <img
-              className="object-cover"
-              src={imageURL}
-              alt="photo"
-            />
+            <img className="object-cover" src={imageURL} alt="photo" />
           </div>
         </div>
       )}

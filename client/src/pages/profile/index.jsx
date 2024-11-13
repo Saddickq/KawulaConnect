@@ -28,6 +28,7 @@ const Profile = () => {
   useEffect(() => {
     setImage(userInfo.avatar);
     setFirstName(userInfo.firstName);
+    setSelectedColor(userInfo.color);
     setLastName(userInfo.lastName);
   }, []);
 
@@ -39,6 +40,7 @@ const Profile = () => {
 
   const uploadProfilePicture = async (event) => {
     const file = event.target.files[0];
+    const token = localStorage.getItem("token");
     if (file) {
       try {
         const formData = new FormData();
@@ -55,6 +57,7 @@ const Profile = () => {
             },
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -80,13 +83,18 @@ const Profile = () => {
 
     try {
       setIsLoading(true);
+      const token = localStorage.getItem("token");
       await axios
-        .put("/api/v1/updateUser", {
-          firstName,
-          lastName,
-          selectedColor,
-          avatar: image,
-        })
+        .put(
+          "/api/v1/updateUser",
+          {
+            firstName,
+            lastName,
+            selectedColor,
+            avatar: image,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
         .then(({ data }) => {
           setUserInfo(data);
           setIsLoading(false);
@@ -150,6 +158,7 @@ const Profile = () => {
                   ref={fileInputRef}
                   onChange={uploadProfilePicture}
                   type="file"
+                  accept="image/*"
                 />
               </>
             )}

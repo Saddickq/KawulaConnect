@@ -12,7 +12,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAppStore } from "./pages/store";
 import kawula from "../public/KawulaConnect.png";
 
-
 const ProtectedRoute = ({ children }) => {
   const { userInfo } = useAppStore();
   const isAuthenticated = !!userInfo;
@@ -26,9 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: (
-      <Auth />
-    ),
+    element: <Auth />,
   },
   {
     path: "/profile",
@@ -57,9 +54,16 @@ const App = () => {
 
   const getUserInfo = async () => {
     try {
-      await axios.get("/api/v1/profile").then(({ data }) => {
-        setUserInfo(data);
-      });
+      const token = localStorage.getItem("token");
+      await axios
+        .get("/api/v1/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          setUserInfo(data);
+        });
     } catch (error) {
       console.error(error.response.data.message);
     } finally {
@@ -79,7 +83,7 @@ const App = () => {
     return (
       <div className="h-full w-full text-slate-800 fixed top-0 z-[100] left-0 bg-white/20 flex gap-4 items-center justify-center flex-col backdrop-blur-lg">
         <div className="w-72 h-72">
-          <img src={kawula} alt="loading logo" className="animate-pulse"/>
+          <img src={kawula} alt="loading logo" className="animate-pulse" />
         </div>
       </div>
     );

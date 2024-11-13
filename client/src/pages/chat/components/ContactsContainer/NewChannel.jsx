@@ -32,7 +32,10 @@ const NewChannel = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data, status } = await axios.get("api/get_all_contacts");
+        const token = localStorage.getItem("token");
+        const { data, status } = await axios.get("api/get_all_contacts", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (data.contacts && status === 200) {
           setAllContacts(data.contacts);
         }
@@ -61,11 +64,16 @@ const NewChannel = () => {
 
   const createChannel = async () => {
     try {
-      const { data, status } = await axios.post("/api/channels", {
-        name: channelName,
-        members: selectedContacts.map((contact) => contact.value),
-      });
-      if (data.channel && (status === 201)) {
+      const token = localStorage.getItem("token");
+      const { data, status } = await axios.post(
+        "/api/channels",
+        {
+            name: channelName,
+            members: selectedContacts.map((contact) => contact.value),
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (data.channel && status === 201) {
         setChannelName("");
         setSelectedContacts([]);
         setChannelModal(false);

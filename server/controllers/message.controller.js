@@ -16,7 +16,7 @@ class MessageController {
           { sender: user1, receiver: user2 },
           { sender: user2, receiver: user1 },
         ],
-      }).sort({ timestamp: 1 });
+      }).sort({ createdAt: 1 });
 
       return res.status(200).json({ messages });
     } catch (error) {

@@ -17,7 +17,10 @@ const ContactsContainer = () => {
   useEffect(() => {
     const getContactList = async () => {
       try {
-        const { data, status } = await axios.get("/api/get_contacts_list");
+        const token = localStorage.getItem("token");
+        const { data, status } = await axios.get("/api/get_contacts_list", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (data.contacts && status === 200) {
           setDirectMessageContacts(data.contacts);
         }
@@ -27,7 +30,10 @@ const ContactsContainer = () => {
     };
     const getChannelList = async () => {
       try {
-        const { data, status } = await axios.get("/api/get-user-channels");
+        const token = localStorage.getItem("token");
+        const { data, status } = await axios.get("/api/get-user-channels", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (data.channels && status === 200) {
           setChannels(data.channels);
         }
@@ -42,14 +48,8 @@ const ContactsContainer = () => {
   return (
     <div className="bg-slate-800 w-full h-full flex flex-col">
       <div className="h-[10vh] flex mt-4 items-center">
-        <img
-          src={kawula}
-          className="h-20 w-24"
-          alt="App logo"
-        />
-        <h1 className="text-green-200 text-3xl -ml-2 font-bold">
-          Kawula
-        </h1>
+        <img src={kawula} className="h-20 w-24" alt="App logo" />
+        <h1 className="text-green-200 text-3xl -ml-2 font-bold">Kawula</h1>
       </div>
 
       <div className="flex-grow flex flex-col justify-start">

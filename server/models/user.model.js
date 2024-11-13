@@ -16,10 +16,12 @@ const userSchema = Schema(
     firstName: {
       type: String,
       required: false,
+      trim: true
     },
     lastName: {
       type: String,
       required: false,
+      trim: true
     },
     avatar: {
       type: String,

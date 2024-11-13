@@ -22,6 +22,7 @@ const RegisterForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
         password: formData.password,
       });
       if (data.newUser && status === 201) {
+        localStorage.setItem("token", data.token)
         setUserInfo(data.newUser);
         setIsLoading(false);
         setRedirect("/profile");

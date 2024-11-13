@@ -8,6 +8,4 @@ router.post('/api/auth/register', AuthController.register)
 
 router.post('/api/auth/login', AuthController.login)
 
-router.get('/api/auth/logout', AuthController.logout)
-
 export default router;

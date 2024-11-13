@@ -17,7 +17,7 @@ const MessageHeader = () => {
                   <AvatarImage src={selectedChatData.avatar} />
                 ) : (
                   <div
-                    className={`uppercase w-12 h-12 text-lg flex justify-center items-center cursor-pointer rounded-full ${getColor(
+                    className={`uppercase w-10 h-10 md:w-12 md:h-12 text-md md:text-lg flex justify-center items-center rounded-full ${getColor(
                       selectedChatData.color
                     )}`}
                   >

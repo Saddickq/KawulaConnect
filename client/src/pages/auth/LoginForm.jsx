@@ -22,7 +22,8 @@ const LoginForm = ({ formData, handleChange, setUserInfo, setRedirect }) => {
         email: formData.email,
         password: formData.password,
       });
-      if (status === 200) {
+      if (status === 200 && data.token) {
+        localStorage.setItem("token", data.token)
         setUserInfo(data.user);
         setIsLoading(false);
         setRedirect("/chat");
