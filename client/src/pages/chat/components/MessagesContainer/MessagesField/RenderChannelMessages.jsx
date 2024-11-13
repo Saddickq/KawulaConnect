@@ -21,7 +21,7 @@ const RenderChannelMessages = ({ message, setShowImage, setImageURL }) => {
     >
       {message.messageType === "text" && (
         <div
-          className={`${
+          className={`text-left ${
             message.sender._id === userInfo._id
               ? "bg-slate-800 text-neutral-100"
               : "bg-slate-200 text-neutral-900"

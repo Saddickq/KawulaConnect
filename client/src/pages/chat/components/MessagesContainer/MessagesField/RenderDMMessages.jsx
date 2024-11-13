@@ -19,7 +19,7 @@ const RenderDMMessages = ({ message, setShowImage, setImageURL }) => {
     >
       {message.messageType === "text" && (
         <div
-          className={`${
+          className={`text-left ${
             message.sender !== selectedChatData._id
               ? "bg-slate-800 text-neutral-100"
               : "bg-slate-200 text-neutral-900"
