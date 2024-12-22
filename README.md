@@ -5,10 +5,30 @@
 ![Node.js](https://img.shields.io/badge/Node.js-black.svg?logo=node.js)
 ![JavaScript](https://img.shields.io/badge/JavaScript-black.svg?logo=javascript)
 
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; gap: 40px;">
+
+# KawulaConnect
+
+A modern messaging app that brings people closer with seamless real-time chat and an intuitive interface. With a focus on connection and community, KawulaConnect makes it easy to stay in touch, share moments, and communicate effectively.
+
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; gap: 45px;">
    <img style="width: 350px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734867401/Kawula/eqkm4i7k1uy3l0k6z5yn.png" alt="Screenshot 1">
    <img style="width: 350px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734869447/Kawula/tncb2gisy7cpivv9oswx.png" alt="Screenshot 2">
 </div>
+
+## Features
+
+- Responsiveness: Fully Responsive Design 📱💻
+- File Handling: Multer for File and Image Storage 📁📷
+- File Storage: Cloudinary for storing files to cloud storage 📥
+- File Download: Easy File Downloading 📥
+- Real-time Messaging: Sockets for Instant Communication 💬
+- Chat Support: Group Chats and Personal Messages 👥💬
+- Fun Conversations: Emoji Support 😄
+- State Management: Zustand for Seamless State Management 🧠
+- API Calls: Axios for Smooth API Interactions 🌐
+- User authentication JWT Tokens 🔑
+- User authorization
+
 
 ## Two Weeks Post-Deployment of KawulaConnect
 
@@ -24,23 +44,6 @@ I am continuously working on improving the app based on user feedback and excite
 
 <img style="width: 400px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734870437/Kawula/uqndqlpac9txggatfqju.png" alt="metrix">
 
-# KawulaConnect
-
-A modern messaging app that brings people closer with seamless real-time chat and an intuitive interface. With a focus on connection and community, KawulaConnect makes it easy to stay in touch, share moments, and communicate effectively.
-
-## Features
-
-- Responsiveness: Fully Responsive Design 📱💻
-- File Handling: Multer for File and Image Storage 📁📷
-- File Storage: Cloudinary for storing files to cloud storage 📥
-- File Download: Easy File Downloading 📥
-- Real-time Messaging: Sockets for Instant Communication 💬
-- Chat Support: Group Chats and Personal Messages 👥💬
-- Fun Conversations: Emoji Support 😄
-- State Management: Zustand for Seamless State Management 🧠
-- API Calls: Axios for Smooth API Interactions 🌐
-- User authentication JWT Tokens 🔑
-- User authorization
 
 ## Tech Stack
 
