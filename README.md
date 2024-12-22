@@ -5,6 +5,24 @@
 ![Node.js](https://img.shields.io/badge/Node.js-black.svg?logo=node.js)
 ![JavaScript](https://img.shields.io/badge/JavaScript-black.svg?logo=javascript)
 
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; gap: 40px;">
+   <img style="width: 350px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734867401/Kawula/eqkm4i7k1uy3l0k6z5yn.png" alt="Screenshot 1">
+   <img style="width: 350px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734869447/Kawula/tncb2gisy7cpivv9oswx.png" alt="Screenshot 2">
+</div>
+
+## Two Weeks Post-Deployment of KawulaConnect
+
+After two weeks of deploying KawulaConnect, i have observed significant user engagement and positive feedback. Here are some key highlights:
+
+- **User Growth:** Over 30 new users have joined the platform.
+- **Message Volume:** More than 400 messages have been exchanged.
+- **Feature Usage:** High usage of real-time messaging and group chat features.
+- **Performance:** The app has maintained a 90% uptime with minimal latency.
+- **Feedback:** Users have praised the intuitive interface and seamless real-time chat experience.
+
+I am continuously working on improving the app based on user feedback and excited about the future updates and features i plan to introduce.
+
+<img style="width: 400px;" src="https://res.cloudinary.com/dh9q1rj0k/image/upload/v1734870437/Kawula/uqndqlpac9txggatfqju.png" alt="metrix">
 
 # KawulaConnect
 
@@ -22,7 +40,7 @@ A modern messaging app that brings people closer with seamless real-time chat an
 - State Management: Zustand for Seamless State Management 🧠
 - API Calls: Axios for Smooth API Interactions 🌐
 - User authentication JWT Tokens 🔑
-- User authorization 
+- User authorization
 
 ## Tech Stack
 
@@ -35,34 +53,40 @@ A modern messaging app that brings people closer with seamless real-time chat an
 ## Installation
 
 Clone the repository
+
 ```bash
   git clone https://github.com/Saddickq/KawulaConnect.git
 ```
 
 Navigate into the project directory
+
 ```bash
   cd KawulaConnect
 ```
 
 Install backend dependencies
+
 ```bash
   cd server
   npm install
 ```
 
 Install frontend dependencies
+
 ```bash
   cd ../client
   npm install
 ```
 
 Start the backend server
+
 ```bash
   cd ../server
   npm start
 ```
 
 Start the frontend development server
+
 ```bash
   cd ../client
   npm start
@@ -78,7 +102,6 @@ To run this project, you will need to add the following environment variables to
 `cloud_name`
 `api_key`
 `api_secret`
-
 
 ## Authors
 
